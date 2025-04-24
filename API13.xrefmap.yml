@@ -42244,6 +42244,12 @@ references:
   commentId: T:Tizen.Applications.PackageType
   fullName: Tizen.Applications.PackageType
   nameWithType: PackageType
+- uid: Tizen.Applications.PackageType.RPK
+  name: RPK
+  href: API13/api/Tizen.Applications.PackageType.html#Tizen_Applications_PackageType_RPK
+  commentId: F:Tizen.Applications.PackageType.RPK
+  fullName: Tizen.Applications.PackageType.RPK
+  nameWithType: PackageType.RPK
 - uid: Tizen.Applications.PackageType.RPM
   name: RPM
   href: API13/api/Tizen.Applications.PackageType.html#Tizen_Applications_PackageType_RPM
