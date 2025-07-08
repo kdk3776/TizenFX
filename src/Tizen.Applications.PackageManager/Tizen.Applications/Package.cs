@@ -49,6 +49,7 @@ namespace Tizen.Applications
         private Lazy<IReadOnlyDictionary<CertificateType, PackageCertificate>> _certificates;
         private List<string> _privileges;
         private int _installedTime;
+        private long _firstInstalledTime;
 
         private Dictionary<IntPtr, Interop.PackageManager.PackageManagerSizeInfoCallback> _packageManagerSizeInfoCallbackDict = new Dictionary<IntPtr, Interop.PackageManager.PackageManagerSizeInfoCallback>();
         private int _callbackId = 0;
@@ -167,6 +168,12 @@ namespace Tizen.Applications
         /// </summary>
         /// <since_tizen> 3 </since_tizen>
         public IEnumerable<string> Privileges { get { return _privileges; } }
+
+        /// <summary>
+        /// Installed time of the package.
+        /// </summary>
+        /// <since_tizen> 13 </since_tizen>
+        public int FirstInstalledTime { get { return _firstInstalledTime; } }
 
         /// <summary>
         /// Installed time of the package.
@@ -404,6 +411,19 @@ namespace Tizen.Applications
             {
                 // To support in API vesion 3.0
                 package._installedTime = 0;
+            }
+            try
+            {
+                err = Interop.Package.PackageInfoGetFirstInstalledTime(handle, out package._firstInstalledTime);
+                if (err != Interop.PackageManager.ErrorCode.None)
+                {
+                    Log.Warn(LogTag, "Failed to get first installed time of " + pkgId);
+                }
+            }
+            catch (TypeLoadException)
+            {
+                // To support in API vesion 13.0
+                package._firstInstalledTime = 0;
             }
 
             package._certificates = new Lazy<IReadOnlyDictionary<CertificateType, PackageCertificate>>(() => { return PackageCertificate.GetPackageCertificates(pkgId); });
